@@ -31,7 +31,10 @@ def spider():
         soup = BeautifulSoup(r.text, 'lxml')
         page += 1
         for tr in soup.find(class_='brd_list_n').find('tbody').select('tr'):
-            print(tr.find('th').text)
+            print(tr.find('th').text, end=' ')
+            for td in tr.find_all('td'):
+                print(td.text, end=' ')
+            print('\n')
 
 
 spider()
