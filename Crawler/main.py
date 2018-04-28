@@ -6,6 +6,7 @@ regex = r"(?<=\/)(\d+(?= 페이지))"
 
 p = re.compile(regex)
 
+
 def spider():
     page = 1
     param = {
