@@ -7,6 +7,22 @@ regex = r"(?<=\/)(\d+(?= 페이지))"
 p = re.compile(regex)
 
 
+class Company:
+    def __init__(self):
+        self.name = ''
+        self.linkage = False
+        self.provincial_office = ''
+        self.is_employing = False
+
+    def setData(self, name, linkage, provincial_office, is_employing):
+        self.name = name
+        if linkage == '참여':
+            self.linkage = True
+        self.provincial_office = provincial_office
+        if is_employing == '모집중':
+            self.is_employing = True
+
+
 def spider():
     page = 1
     param = {
@@ -32,10 +48,11 @@ def spider():
         soup = BeautifulSoup(r.text, 'lxml')
         page += 1
         for tr in soup.find(class_='brd_list_n').find('tbody').select('tr'):
-            print(tr.find('th').text, end=' ')
-            for td in tr.find_all('td'):
-                print(td.text, end=' ')
-            print('\n')
+            company = Company()
+            ls = tr.find_all('td')
+            company.setData(tr.find('th').text, ls[0].text, ls[1].text, ls[2].text)
+
+            print(f'{company.name}, {company.linkage}, {company.provincial_office}, {company.is_employing}')
 
 
 spider()
