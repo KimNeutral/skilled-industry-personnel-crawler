@@ -1,19 +1,18 @@
 import scrapy
 
 
-class QuotesSpider(scrapy.Spider):
+class CompanySpider(scrapy.Spider):
     name = "quotes"
     start_urls = [
-        'http://quotes.toscrape.com/tag/humor/',
+        'http://www.saramin.co.kr/zf_user/recruit/company-info/idx/1',
     ]
 
     def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.xpath('span/small/text()').extract_first(),
-            }
-
-        next_page = response.css('li.next a::attr("href")').extract_first()
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
+        dic = {}
+        for info in response.css('.table_col_type1').css('tbody').css('tr'):
+            key = info.css('th::text').extract_first().strip()
+            if key == "홈페이지":
+                dic[key] = link = info.css('td a.link_site::attr("href")').extract_first()
+            else:
+                dic[key] = info.css('td::text').extract_first().strip()
+        yield dic
