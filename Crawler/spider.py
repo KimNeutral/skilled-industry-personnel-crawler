@@ -3,9 +3,11 @@ import scrapy
 
 class CompanySpider(scrapy.Spider):
     name = "quotes"
-    start_urls = [
-        'http://www.saramin.co.kr/zf_user/recruit/company-info/idx/1',
-    ]
+    base_url = 'http://www.saramin.co.kr/zf_user/recruit/company-info-view?idx=%d'
+
+    def start_requests(self):
+        for i in range(1, 100):
+            yield scrapy.Request(self.base_url % i)
 
     def parse(self, response):
         dic = {}
