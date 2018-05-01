@@ -12,5 +12,5 @@ process = CrawlerProcess({
     'FEED_EXPORT_ENCODING': 'utf-8'
 })
 
-process.crawl(spider.CompanySpider())
+process.crawl(spider.CompanySpider, idx=2)
 process.start() # the script will block here until the crawling is finished

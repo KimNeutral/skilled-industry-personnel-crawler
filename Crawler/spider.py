@@ -6,9 +6,9 @@ class CompanySpider(scrapy.Spider):
     name = "quotes"
     base_url = 'http://www.saramin.co.kr/zf_user/recruit/company-info-view?idx=%d'
 
-    def start_requests(self):
-        for i in range(1, 10):
-            yield scrapy.Request(self.base_url % i)
+    def __init__(self, idx=1, **kwargs):
+        self.start_urls = [self.base_url % idx]
+        super().__init__(self, **kwargs)
 
     def parse(self, response):
         item = Company()
