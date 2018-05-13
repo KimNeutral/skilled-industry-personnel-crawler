@@ -19,4 +19,5 @@ class CompanySpider(scrapy.Spider):
                 item[key] = info.css('td a.link_site::attr("href")').extract_first()
             elif key is not None and value is not None:
                 item[key] = value
+        item['original_url'] = response.request.url
         yield item

@@ -12,7 +12,7 @@ table = {
     '대표전화': 'tel',
     'FAX': 'fax',
     '홈페이지': 'website',
-    '기업주소': 'address'
+    '기업주소': 'address',
 }
 
 
@@ -29,6 +29,7 @@ class Company(scrapy.Item):
     fax = scrapy.Field()
     website = scrapy.Field()
     address = scrapy.Field()
+    original_url = scrapy.Field();
     pass
 
 
